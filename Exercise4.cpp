@@ -18,7 +18,7 @@ struct stdInfo
 
 
 void CheckBirthInput(vector <stdInfo>& stdInfoVec, int i);
-void CalStudentAge(vector<stdInfo>& stdInfoVec, int i);
+void CalStudentAgeAndInput(vector<stdInfo>& stdInfoVec, int i);
 
 void SelectOption_PrintStudentInfo(int option, vector <stdInfo> stdInfoVec);
 void SelectOption_PrintStudentAgeAverage(int option, vector <stdInfo> stdInfoVec);
@@ -71,7 +71,7 @@ int main()
 		CheckBirthInput(stdInfoVec, i);
 
 		//나이 계산 후 벡터에 저장
-		CalStudentAge(stdInfoVec, i);
+		CalStudentAgeAndInput(stdInfoVec, i);
 	}
 
 	//3. 1) 학생 정보 출력, 2) 평균 나이, 3) 가장 빠른 생일, 4) 프로그램 종료 네 가지 기능 모두 구현
@@ -142,7 +142,7 @@ void CheckBirthInput(vector <stdInfo>& stdInfoVec, int i)
 	}
 }
 
-void CalStudentAge(vector<stdInfo>& stdInfoVec, int i)//생년월일 이용 나이 계산
+void CalStudentAgeAndInput(vector<stdInfo>& stdInfoVec, int i)//생년월일 이용 나이 계산
 {
 	time_t timer = time(NULL);
 	struct tm* t = localtime(&timer);

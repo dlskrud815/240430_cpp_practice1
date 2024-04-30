@@ -23,6 +23,7 @@ void CalStudentAgeAndInput(vector<stdInfo>& stdInfoVec, int i);
 void SelectOption_PrintStudentInfo(int option, vector <stdInfo> stdInfoVec);
 void SelectOption_PrintStudentAgeAverage(int option, vector <stdInfo> stdInfoVec);
 void SelectOption_PrintEarlyBirthday(int option, vector <stdInfo> stdInfoVec);
+void SelectOption_EditStudentInfo(int option, int editStdNum, vector <stdInfo>& stdInfoVec);
 
 void PrintStudentInfo(vector<stdInfo> stdInfoVec, int i);
 
@@ -33,7 +34,7 @@ void PrintEarlyBirthStudentInfo(vector<stdInfo> stdInfoVec, bool useYear);
 
 int main()
 {
-	int stdNum, option1, option2;
+	int stdNum, option1, option2, editStdNum;
 
 	cout << "** c++ 종합 실습 **" << endl << endl;
 
@@ -77,7 +78,7 @@ int main()
 	while (1)
 	{
 		cout << endl << "[옵션]" << endl
-			<< "1) 학생 정보 , 2) 평균 나이, 3) 가장 빠른 생일, 4) 프로그램 종료" << endl;
+			<< "1) 학생 정보 , 2) 평균 나이, 3) 가장 빠른 생일, 4) 프로그램 종료, 0) 입력 정보 수정" << endl;
 		cin >> option1;
 
 		switch (option1)
@@ -99,6 +100,25 @@ int main()
 			break;
 		case 4: //4) 프로그램 종료
 			return 0;
+		case 0: //0) 입력 값 수정
+			cout << endl << "정보 수정을 원하는 학생 번호는.. ";
+			cin >> editStdNum;
+			
+			while (1)
+			{
+				if (editStdNum <= 0 || editStdNum > stdInfoVec.size())
+				{
+					cout << endl << "* 해당 번호의 학생은 존재하지 않습니다. " << endl
+						<< endl << "[재입력]" << endl
+						<< "정보 수정을 원하는 학생 번호는.. ";
+					cin >> editStdNum;
+				}
+				else break;
+			}
+			
+			cout << endl << "1) 이름 수정, 2) 생년월일 수정" << endl;
+			cin >> option2;
+			SelectOption_EditStudentInfo(option2, editStdNum, stdInfoVec);
 		}
 	}
 
@@ -232,6 +252,40 @@ void SelectOption_PrintEarlyBirthday(int option, vector <stdInfo> stdInfoVec)
 	case 2: //2) 나이가 가장 많은 학생 정보 출력
 		cout << endl << "나이가 가장 많은 학생은.. " << endl;
 		PrintEarlyBirthStudentInfo(stdInfoVec, useYear = true);
+		break;
+	}
+}
+
+
+void SelectOption_EditStudentInfo(int option, int editStdNum, vector <stdInfo>& stdInfoVec)
+{
+	switch (option)
+	{
+	case 1:
+		for (int i = 0; i < stdInfoVec.size(); i++)
+		{
+			if (stdInfoVec[i].stdNo == editStdNum)
+			{
+				cout << endl << "이름은.. ";
+				cin >> stdInfoVec[i].stdName;
+			}
+		}
+		break;
+	case 2:
+		for (int i = 0; i < stdInfoVec.size(); i++)
+		{
+			if (stdInfoVec[i].stdNo == editStdNum)
+			{
+				cout << endl << "생년월일은.. ";
+				cin >> stdInfoVec[i].stdBirth;
+
+				//생년월일 자리수 및 숫자 여부 확인
+				CheckBirthInput(stdInfoVec, i);
+
+				//나이 계산 후 벡터에 저장
+				CalStudentAgeAndInput(stdInfoVec, i);
+			}
+		}
 		break;
 	}
 }

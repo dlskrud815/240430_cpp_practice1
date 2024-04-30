@@ -41,7 +41,7 @@ int main()
 	cout << "coooooon이 되도록 변경.. " << s << endl << endl;
 
 	//5. "con"이 되도록 변경
-	s.erase(startIndex, endIndex);
+	s.erase(startIndex, endIndex-startIndex);
 	cout << "con이 되도록 변경.. " << s << endl;
 
 	return 0;

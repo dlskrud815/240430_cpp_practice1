@@ -33,22 +33,17 @@ int main()
 
 bool strIntCheck(string* ptr)
 {
-	int check = 0;
 	string str(*ptr);
 
 	for (int i = 0; i < str.length(); i++)
 	{
-		if (!isdigit(str[i]))
+		if (!isdigit(str[i])) //숫자 x
 		{
-			check++;
+			return false;
 		}
 	}
 
-	if (check == 0) //모두 숫자
-	{
-		return true;
-	}
-	else return false;
+	return true; //모두 숫자
 }
 
 void strInput(string* ptr)

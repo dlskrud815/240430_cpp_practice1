@@ -38,7 +38,7 @@ int main()
 			s[i] = ch;
 		}
 	}
-	cout << "coooooon이 되도록 변경.. " << s << endl << endl;
+	cout << "coooooon이 되도록 변경.. " << s << endl;
 
 	//5. "con"이 되도록 변경
 	cout << endl << "*삭제할 인덱스 입력*" << endl

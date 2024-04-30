@@ -26,10 +26,10 @@ int main()
 	num2 = stoi(str2);
 
 	//2. 앞에서 입력 받은 두 숫자를 이어 붙여서 출력
-	cout << endl << str1.append(str2);
+	cout << endl << str1.append(str2) << endl;
 
 	//3. 앞에서 입력 받은 두 숫자의 합을 출력
-	cout << endl << num1 + num2;
+	cout << endl << num1 + num2 << endl;
 
 	return 0;
 }

@@ -56,19 +56,21 @@ int main()
 				<< "생년월일: 20010815" << endl;
 		}
 
+		//학생 번호 자동 순차 부여
 		stdInfoVec[i].stdNo = i + 1;
 		
+		//학생 이름 입력
 		cout << endl << i + 1 << "번 학생" << endl << "이름: ";
 		cin >> stdInfoVec[i].stdName;
 		
+		//학생 생년월일 여덟자리 입력
 		cout << "생년월일: ";
 		cin >> stdInfoVec[i].stdBirth;
 
-		//생년월일 확인
+		//생년월일 자리수 및 숫자 여부 확인
 		CheckBirthInput(stdInfoVec, i);
 
-		//생년월일 여섯자리 숫자 확인 완료 후 나이 계산
-		//나이 계산 후 벡터에 넣음
+		//나이 계산 후 벡터에 저장
 		CalStudentAge(stdInfoVec, i);
 	}
 
@@ -77,32 +79,30 @@ int main()
 	while (1)
 	{
 		cout << endl << "[옵션]" << endl
-			<< "1) 학생 정보 출력, 2) 평균 나이, 3) 가장 빠른 생일, 4) 프로그램 종료" << endl;
+			<< "1) 학생 정보 , 2) 평균 나이, 3) 가장 빠른 생일, 4) 프로그램 종료" << endl;
 		cin >> option1;
 
 		switch (option1)
 		{
-		case 1:
+		case 1: //1) 학생 정보
 			cout << endl << "1) 전체 학생 정보 출력, 2) 특정 학생 정보 출력" << endl;
 			cin >> option2;
 			SelectOption_PrintStudentInfo(option2, stdInfoVec);
 			break;
-		case 2:
+		case 2: //2) 평균 나이
 			cout << endl << "1) 만 나이 평균 출력, 2) 년 나이 평균 출력" << endl;
 			cin >> option2;
 			SelectOption_PrintStudentAgeAverage(option2, stdInfoVec);
 			break;
-		case 3:
+		case 3: //3) 가장 빠른 생일
 			cout << endl << "1) 생일이 가장 빠른 학생 정보 출력, 2) 나이가 가장 많은 학생 정보 출력" << endl;
 			cin >> option2;
 			SelectOption_PrintEarlyBirthday(option2, stdInfoVec);
 			break;
-		case 4:
+		case 4: //4) 프로그램 종료
 			return 0;
 		}
 	}
-	//반복 입력 필수
-
 
 	return 0;
 }
@@ -183,13 +183,13 @@ void SelectOption_PrintStudentInfo(int option, vector <stdInfo> stdInfoVec)
 
 	switch (option)
 	{
-	case 1:
+	case 1: //1) 전체 학생 정보 출력
 		for (int i = 0; i < stdInfoVec.size(); i++)
 		{
 			PrintStudentInfo(stdInfoVec, i);
 		}
 		break;
-	case 2:
+	case 2: //2) 특정 학생 정보 출력
 		cout << endl << "학생 이름: ";
 		cin >> stdName;
 
@@ -208,11 +208,11 @@ void SelectOption_PrintStudentAgeAverage(int option, vector <stdInfo> stdInfoVec
 {
 	switch (option)
 	{
-	case 1:
+	case 1: //1) 만 나이 평균 출력
 		cout << endl << "학생들의 평균 만 나이는.. "
 			<< CalStudentAgeAverage(stdInfoVec) << "세" << endl;
 		break;
-	case 2:
+	case 2: //2) 년 나이 평균 출력
 		cout << endl << "학생들의 평균 년 나이는.. "
 			<< CalStudentKoreanAgeAverage(stdInfoVec) << "세" << endl;
 		break;
@@ -223,11 +223,11 @@ void SelectOption_PrintEarlyBirthday(int option, vector <stdInfo> stdInfoVec)
 {
 	switch (option)
 	{
-	case 1:
+	case 1: //1) 생일이 가장 빠른 학생 정보 출력
 		cout << endl << "생일이 가장 빠른 학생은.. " << endl;
 		PrintEarlyBirthdayStudentInfo(stdInfoVec);
 		break;
-	case 2:
+	case 2: //2) 나이가 가장 많은 학생 정보 출력
 		cout << endl << "나이가 가장 많은 학생은.. " << endl;
 		PrintEarlyBirthStudentInfo(stdInfoVec);
 		break;

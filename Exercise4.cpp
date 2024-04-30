@@ -259,34 +259,28 @@ void SelectOption_PrintEarlyBirthday(int option, vector <stdInfo> stdInfoVec)
 
 void SelectOption_EditStudentInfo(int option, int editStdNum, vector <stdInfo>& stdInfoVec)
 {
-	switch (option)
+	for (int i = 0; i < stdInfoVec.size(); i++)
 	{
-	case 1:
-		for (int i = 0; i < stdInfoVec.size(); i++)
+		if (stdInfoVec[i].stdNo == editStdNum)
 		{
-			if (stdInfoVec[i].stdNo == editStdNum)
+			switch (option)
 			{
+			case 1:
 				cout << endl << "이름은.. ";
 				cin >> stdInfoVec[i].stdName;
-			}
-		}
-		break;
-	case 2:
-		for (int i = 0; i < stdInfoVec.size(); i++)
-		{
-			if (stdInfoVec[i].stdNo == editStdNum)
-			{
+				break;
+			case 2:
 				cout << endl << "생년월일은.. ";
 				cin >> stdInfoVec[i].stdBirth;
 
 				//생년월일 자리수 및 숫자 여부 확인
 				CheckBirthInput(stdInfoVec, i);
-
 				//나이 계산 후 벡터에 저장
 				CalStudentAgeAndInput(stdInfoVec, i);
+
+				break;
 			}
 		}
-		break;
 	}
 }
 

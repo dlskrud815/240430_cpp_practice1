@@ -26,11 +26,9 @@ void SelectOption_PrintEarlyBirthday(int option, vector <stdInfo> stdInfoVec);
 
 void PrintStudentInfo(vector<stdInfo> stdInfoVec, int i);
 
-float CalStudentAgeAverage(vector<stdInfo> stdInfoVec);
-float CalStudentKoreanAgeAverage(vector<stdInfo> stdInfoVec);
+float CalStudentAgeAverage(vector<stdInfo> stdInfoVec, bool useKoreanAge);
 
-void PrintEarlyBirthdayStudentInfo(vector<stdInfo> stdInfoVec);
-void PrintEarlyBirthStudentInfo(vector<stdInfo> stdInfoVec);
+void PrintEarlyBirthStudentInfo(vector<stdInfo> stdInfoVec, bool useYear);
 
 
 int main()
@@ -206,30 +204,34 @@ void SelectOption_PrintStudentInfo(int option, vector <stdInfo> stdInfoVec)
 
 void SelectOption_PrintStudentAgeAverage(int option, vector <stdInfo> stdInfoVec)
 {
+	bool useKoreanAge;
+
 	switch (option)
 	{
 	case 1: //1) 만 나이 평균 출력
 		cout << endl << "학생들의 평균 만 나이는.. "
-			<< CalStudentAgeAverage(stdInfoVec) << "세" << endl;
+			<< CalStudentAgeAverage(stdInfoVec, useKoreanAge = false) << "세" << endl;
 		break;
 	case 2: //2) 년 나이 평균 출력
 		cout << endl << "학생들의 평균 년 나이는.. "
-			<< CalStudentKoreanAgeAverage(stdInfoVec) << "세" << endl;
+			<< CalStudentAgeAverage(stdInfoVec, useKoreanAge = true) << "세" << endl;
 		break;
 	}
 }
 
 void SelectOption_PrintEarlyBirthday(int option, vector <stdInfo> stdInfoVec)
 {
+	bool useYear;
+
 	switch (option)
 	{
 	case 1: //1) 생일이 가장 빠른 학생 정보 출력
 		cout << endl << "생일이 가장 빠른 학생은.. " << endl;
-		PrintEarlyBirthdayStudentInfo(stdInfoVec);
+		PrintEarlyBirthStudentInfo(stdInfoVec, useYear = false);
 		break;
 	case 2: //2) 나이가 가장 많은 학생 정보 출력
 		cout << endl << "나이가 가장 많은 학생은.. " << endl;
-		PrintEarlyBirthStudentInfo(stdInfoVec);
+		PrintEarlyBirthStudentInfo(stdInfoVec, useYear = true);
 		break;
 	}
 }
@@ -245,38 +247,26 @@ void PrintStudentInfo(vector<stdInfo> stdInfoVec, int i)
 }
 
 
-float CalStudentAgeAverage(vector<stdInfo> stdInfoVec)
+float CalStudentAgeAverage(vector<stdInfo> stdInfoVec, bool useKoreanAge)
 {
 	float ageSum = 0;
 
 	for (int i = 0; i < stdInfoVec.size(); i++)
 	{
-		ageSum += stdInfoVec[i].stdAge;
-	}
-
-	return ageSum / stdInfoVec.size();
-}
-
-float CalStudentKoreanAgeAverage(vector<stdInfo> stdInfoVec)
-{
-	float ageSum = 0;
-
-	for (int i = 0; i < stdInfoVec.size(); i++)
-	{
-		ageSum += stdInfoVec[i].stdKoreanAge;
+		ageSum += useKoreanAge ? stdInfoVec[i].stdKoreanAge : stdInfoVec[i].stdAge;
 	}
 
 	return ageSum / stdInfoVec.size();
 }
 
 
-void PrintEarlyBirthdayStudentInfo(vector<stdInfo> stdInfoVec)
+void PrintEarlyBirthStudentInfo(vector<stdInfo> stdInfoVec, bool useYear)
 {
-	int birth, minBirth = 1231;
+	int birth, minBirth = useYear ? 99991231 : 1231;
 
 	for (int i = 0; i < stdInfoVec.size(); i++)
 	{
-		birth = stoi(stdInfoVec[i].stdBirth.substr(4));
+		birth = useYear ? stoi(stdInfoVec[i].stdBirth) : stoi(stdInfoVec[i].stdBirth.substr(4));
 
 		if (birth < minBirth)
 		{
@@ -286,32 +276,7 @@ void PrintEarlyBirthdayStudentInfo(vector<stdInfo> stdInfoVec)
 
 	for (int i = 0; i < stdInfoVec.size(); i++)
 	{
-		birth = stoi(stdInfoVec[i].stdBirth.substr(4));
-
-		if (birth == minBirth)
-		{
-			PrintStudentInfo(stdInfoVec, i);
-		}
-	}
-}
-
-void PrintEarlyBirthStudentInfo(vector<stdInfo> stdInfoVec)
-{
-	int birth, minBirth = 99991231;
-
-	for (int i = 0; i < stdInfoVec.size(); i++)
-	{
-		birth = stoi(stdInfoVec[i].stdBirth);
-
-		if (birth < minBirth)
-		{
-			minBirth = birth;
-		}
-	}
-
-	for (int i = 0; i < stdInfoVec.size(); i++)
-	{
-		birth = stoi(stdInfoVec[i].stdBirth);
+		birth = useYear ? stoi(stdInfoVec[i].stdBirth) : stoi(stdInfoVec[i].stdBirth.substr(4));
 
 		if (birth == minBirth)
 		{

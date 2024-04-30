@@ -19,7 +19,7 @@ int main()
 	cout << "two라는 문자가 처음 나오는 index: " << s.find("two") << endl;
 
 	//5. "two"라는 문자가 두번째 나오는 index 출력
-	cout << "two라는 문자가 처음 나오는 index: " << s.find("two", s.find("two")+1) << endl;
+	cout << "two라는 문자가 두번째 나오는 index: " << s.find("two", s.find("two")+1) << endl;
 
 	return 0;
 }

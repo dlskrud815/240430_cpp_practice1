@@ -8,7 +8,6 @@ void strInput(string* ptr);
 int main()
 {
 	string str1, str2;
-	int num1, num2;
 
 	//1. 두 문자열을 입력 받아서 둘 모두 숫자인지 검사, 아니면 다시 입력 받도록
 	cout << "첫 번째 문자열 입력: ";
@@ -18,15 +17,12 @@ int main()
 	cout << "두 번째 문자열 입력: ";
 	cin >> str2;
 	strInput(&str2);
-	
-	num1 = stoi(str1);
-	num2 = stoi(str2);
 
 	//2. 앞에서 입력 받은 두 숫자를 이어 붙여서 출력
 	cout << endl << str1.append(str2) << endl;
 
 	//3. 앞에서 입력 받은 두 숫자의 합을 출력
-	cout << endl << num1 + num2 << endl;
+	cout << endl << stoi(str1) + stoi(str2) << endl;
 
 	return 0;
 }

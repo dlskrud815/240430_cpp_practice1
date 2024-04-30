@@ -8,19 +8,16 @@ void strInput(string* ptr);
 int main()
 {
 	string str1, str2;
-	string* ptr;
 	int num1, num2;
 
 	//1. 두 문자열을 입력 받아서 둘 모두 숫자인지 검사, 아니면 다시 입력 받도록
 	cout << "첫 번째 문자열 입력: ";
 	cin >> str1;
-	ptr = &str1;
-	strInput(ptr);
+	strInput(&str1);
 
 	cout << "두 번째 문자열 입력: ";
 	cin >> str2;
-	ptr = &str2;
-	strInput(ptr);
+	strInput(&str2);
 	
 	num1 = stoi(str1);
 	num2 = stoi(str2);

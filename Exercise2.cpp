@@ -37,7 +37,7 @@ bool strIntCheck(string* ptr)
 
 	for (int i = 0; i < str.length(); i++)
 	{
-		if (!isdigit(str[i])) //숫자 x
+		if (!isdigit(str[i])) //문자 검출
 		{
 			return false;
 		}

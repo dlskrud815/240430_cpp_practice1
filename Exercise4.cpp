@@ -16,16 +16,22 @@ struct stdInfo
 	stdInfo() : stdNo(0), stdAge(0), stdKoreanAge(0) {}
 };
 
+
 void CheckBirthInput(vector <stdInfo>& stdInfoVec, int i);
+void CalStudentAge(vector<stdInfo>& stdInfoVec, int i);
+
 void SelectOption_PrintStudentInfo(int option, vector <stdInfo> stdInfoVec);
 void SelectOption_PrintStudentAgeAverage(int option, vector <stdInfo> stdInfoVec);
 void SelectOption_PrintEarlyBirthday(int option, vector <stdInfo> stdInfoVec);
+
 void PrintStudentInfo(vector<stdInfo> stdInfoVec, int i);
-void CalStudentAge(vector<stdInfo>& stdInfoVec, int i);
+
 float CalStudentAgeAverage(vector<stdInfo> stdInfoVec);
 float CalStudentKoreanAgeAverage(vector<stdInfo> stdInfoVec);
+
 void PrintEarlyBirthdayStudentInfo(vector<stdInfo> stdInfoVec);
 void PrintEarlyBirthStudentInfo(vector<stdInfo> stdInfoVec);
+
 
 int main()
 {
@@ -39,6 +45,7 @@ int main()
 	vector <stdInfo> stdInfoVec(stdNum); //학생 정보 구조체 벡터
 
 	//2. 학생 수만큼 "이름 나이 생일" 순서로 한 번에 입력 받기
+	//나이를 입력 받지 않고 생년월일로 입력 받은 후 계산
 	for (int i = 0; i < stdNum; i++)
 	{
 		if (i == 0)
@@ -61,10 +68,12 @@ int main()
 		CheckBirthInput(stdInfoVec, i);
 
 		//생년월일 여섯자리 숫자 확인 완료 후 나이 계산
+		//나이 계산 후 벡터에 넣음
 		CalStudentAge(stdInfoVec, i);
 	}
 
 	//3. 1) 학생 정보 출력, 2) 평균 나이, 3) 가장 빠른 생일, 4) 프로그램 종료 네 가지 기능 모두 구현
+	//동명이인이나 같은 생년월일 등 조회 조건이 같을 경우 모두 출력하도록 함
 	while (1)
 	{
 		cout << endl << "[옵션]" << endl
@@ -97,6 +106,7 @@ int main()
 
 	return 0;
 }
+
 
 void CheckBirthInput(vector <stdInfo>& stdInfoVec, int i)
 {
@@ -131,6 +141,41 @@ void CheckBirthInput(vector <stdInfo>& stdInfoVec, int i)
 		}
 	}
 }
+
+void CalStudentAge(vector<stdInfo>& stdInfoVec, int i)//생년월일 이용 나이 계산
+{
+	time_t timer = time(NULL);
+	struct tm* t = localtime(&timer);
+	int age, year, month, date, c_year, c_month, c_date;
+
+	year = stoi(stdInfoVec[i].stdBirth.substr(0, 4));
+	month = stoi(stdInfoVec[i].stdBirth.substr(4, 2));
+	date = stoi(stdInfoVec[i].stdBirth.substr(6, 2));
+
+	c_year = t->tm_year + 1900;
+	c_month = t->tm_mon + 1;
+	c_date = t->tm_mday;
+
+	//년 나이 계산
+	age = c_year - year;
+	stdInfoVec[i].stdKoreanAge = age + 1;
+
+	//만나이 계산
+	if (month - c_month > 0)
+	{
+		age = age - 1;
+	}
+	else if (month - c_month == 0)
+	{
+		if (date - c_date > 0)
+		{
+			age = age - 1;
+		}
+	}
+
+	stdInfoVec[i].stdAge = age;
+}
+
 
 void SelectOption_PrintStudentInfo(int option, vector <stdInfo> stdInfoVec)
 {
@@ -189,6 +234,7 @@ void SelectOption_PrintEarlyBirthday(int option, vector <stdInfo> stdInfoVec)
 	}
 }
 
+
 void PrintStudentInfo(vector<stdInfo> stdInfoVec, int i)
 {
 	cout << endl << stdInfoVec[i].stdNo << "번 학생" << endl
@@ -198,39 +244,6 @@ void PrintStudentInfo(vector<stdInfo> stdInfoVec, int i)
 		<< "생년월일: " << stdInfoVec[i].stdBirth << endl;
 }
 
-void CalStudentAge(vector<stdInfo>& stdInfoVec, int i)//생년월일 이용 나이 계산
-{
-	time_t timer = time(NULL);
-	struct tm* t = localtime(&timer);
-	int age, year, month, date, c_year, c_month, c_date;
-	
-	year = stoi(stdInfoVec[i].stdBirth.substr(0, 4));
-	month = stoi(stdInfoVec[i].stdBirth.substr(4, 2));
-	date = stoi(stdInfoVec[i].stdBirth.substr(6, 2));
-		
-	c_year = t->tm_year + 1900;
-	c_month = t->tm_mon + 1;
-	c_date = t->tm_mday;
-
-	//년 나이 계산
-	age = c_year - year;
-	stdInfoVec[i].stdKoreanAge = age + 1;
-
-	//만나이 계산
-	if (month - c_month > 0)
-	{
-		age = age - 1;
-	}
-	else if (month - c_month == 0)
-	{
-		if (date - c_date > 0)
-		{
-			age = age - 1;
-		}
-	}
-
-	stdInfoVec[i].stdAge = age;
-}
 
 float CalStudentAgeAverage(vector<stdInfo> stdInfoVec)
 {
@@ -255,6 +268,7 @@ float CalStudentKoreanAgeAverage(vector<stdInfo> stdInfoVec)
 
 	return ageSum / stdInfoVec.size();
 }
+
 
 void PrintEarlyBirthdayStudentInfo(vector<stdInfo> stdInfoVec)
 {

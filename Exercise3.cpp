@@ -46,7 +46,7 @@ int main()
 	cin >> startIndex;
 	cout << "어디까지? ";
 	cin >> endIndex;
-	s.erase(startIndex, endIndex-1);
+	s.erase(startIndex, endIndex- startIndex);
 	cout << "con이 되도록 변경.. " << s << endl;
 
 	return 0;

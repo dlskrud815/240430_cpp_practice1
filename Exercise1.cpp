@@ -13,7 +13,14 @@ int main()
 	int input;
 	cout << "몇 번째 문자? ";
 	cin >> input;
-	cout << input << "번째 문자 : " << s[input - 1] << endl;
+	if (input <= s.length())
+	{
+		cout << input << "번째 문자 : " << s[input - 1] << endl;
+	}
+	else
+	{
+		cout << "문자열 범위를 벗어났습니다." << endl;
+	}
 
 	//4. "two"라는 문자가 처음 나오는 index 출력
 	cout << "two라는 문자가 처음 나오는 index: " << s.find("two") << endl;

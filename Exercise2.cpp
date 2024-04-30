@@ -2,8 +2,8 @@
 #include <string>
 using namespace std;
 
-bool strIntCheck(string* ptr);
-void strInput(string* ptr);
+bool CheckOnlyInt(string* ptr);
+void InputLoop(string* ptr);
 
 int main()
 {
@@ -12,11 +12,11 @@ int main()
 	//1. 두 문자열을 입력 받아서 둘 모두 숫자인지 검사, 아니면 다시 입력 받도록
 	cout << "첫 번째 문자열 입력: ";
 	cin >> str1;
-	strInput(&str1);
+	InputLoop(&str1);
 
 	cout << "두 번째 문자열 입력: ";
 	cin >> str2;
-	strInput(&str2);
+	InputLoop(&str2);
 
 	//2. 앞에서 입력 받은 두 숫자를 이어 붙여서 출력
 	cout << endl << str1 + str2 << endl;
@@ -27,7 +27,7 @@ int main()
 	return 0;
 }
 
-bool strIntCheck(string* ptr)
+bool CheckOnlyInt(string* ptr)
 {
 	string str(*ptr);
 
@@ -42,11 +42,11 @@ bool strIntCheck(string* ptr)
 	return true; //모두 숫자
 }
 
-void strInput(string* ptr)
+void InputLoop(string* ptr)
 {
 	while (1)
 	{
-		if (!strIntCheck(ptr))
+		if (!CheckOnlyInt(ptr))
 		{
 			cout << "숫자를 입력해주세요." << endl
 				<< "[재입력]" << endl;

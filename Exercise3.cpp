@@ -20,17 +20,28 @@ int main()
 		<< s.substr(2, 4) << endl;
 
 	//4. "coooooon"이 되도록 변경
+	int startIndex, endIndex;
+	char ch;
+
+	cout << endl << "*변경할 인덱스 입력*" << endl
+		<< "어디서부터? ";
+	cin >> startIndex;
+	cout << "어디까지? ";
+	cin >> endIndex;
+	cout << "어떤 문자로? ";
+	cin >> ch;
+	
 	for (int i = 0; i < s.length(); i++)
 	{
-		if (i >= 1 && i <= 5)
+		if (i >= startIndex && i <= endIndex)
 		{
-			s[i] = 'o';
+			s[i] = ch;
 		}
 	}
-	cout << "coooooon이 되도록 변경.. " << s << endl;
+	cout << "coooooon이 되도록 변경.. " << s << endl << endl;
 
 	//5. "con"이 되도록 변경
-	s.erase(1, 5);
+	s.erase(startIndex, endIndex);
 	cout << "con이 되도록 변경.. " << s << endl;
 
 	return 0;
